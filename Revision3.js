@@ -55,6 +55,27 @@ handlers.helloWorld = function (args, context) {
     return { messageValue: message };
 }
 
+handlers.grantGarageToUser = function (args, context) {
+	
+	var characterToUserResult = server.GrantCharacterToUser(
+	{
+		PlayFabId: currentPlayerId,
+		CharacterName: "Garage_"+currentPlayerId,
+		CharacterType: "Garage"
+	}
+	);
+}
+
+handlers.deleteUser = function (args, context) {
+    
+    var deleteUsersResult = server.DeleteUsers (
+        {
+            PlayFabIds: args.PlayFabId,
+			TitleId: args.TitleId
+        }
+    );
+}
+
 // This is a simple example of making a PlayFab server API call
 handlers.makeAPICall = function (args, context) {
     
