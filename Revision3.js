@@ -57,10 +57,10 @@ handlers.helloWorld = function (args, context) {
 
 handlers.grantGarageToUser = function (args, context) {
 	
-	var characterToUserResult = server.GrantCharacterToUser(
+	server.GrantCharacterToUser(
 	{
 		PlayFabId: currentPlayerId,
-		CharacterName: "Garage_"+currentPlayerId,
+		CharacterName: "Garage_1",
 		CharacterType: "Garage"
 	}
 	);
@@ -70,8 +70,8 @@ handlers.deleteUser = function (args, context) {
     
     var deleteUsersResult = server.DeleteUsers (
         {
-            PlayFabIds: args.PlayFabId,
-			TitleId: args.TitleId
+        	PlayFabIds: args.PlayFabId,
+		TitleId: args.TitleId
         }
     );
 }
