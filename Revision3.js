@@ -44,7 +44,7 @@ handlers.helloWorld = function (args, context) {
     // three functions corresponding to logging level: debug, info, and error. These functions
     // take a message string and an optional object.
     log.info(message);
-    log.debug("helloWorld:", { input: args.inputValue });
+    //log.debug("helloWorld:", { input: args.inputValue });
 
     // The value you return from a Cloud Script function is passed back 
     // to the game client in the ExecuteCloudScript API response, along with any log statements
