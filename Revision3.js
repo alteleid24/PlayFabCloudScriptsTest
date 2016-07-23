@@ -43,7 +43,9 @@ handlers.makeSparePartActive = function (args, context) {
 	log.info("activePartsData = "+activePartsData);
 	var parsedActiveParts = JSON.parse(activePartsData);
 	
-	var partItem = characterInventory.Find((pi) => { return pi.ItemInstanceId == args.ItemInstanceId; });
+	log.info("parsedActiveParts = "+parsedActiveParts);
+	
+	var partItem = characterInventory.find((pi) => { return pi.ItemInstanceId == args.ItemInstanceId; });
 	
 	parsedActiveParts[partItem.ItemClass] = args.ItemInstanceId;
 	
