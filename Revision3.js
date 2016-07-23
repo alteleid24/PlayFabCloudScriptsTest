@@ -19,6 +19,42 @@ handlers.deleteUser = function (args, context) {
     );
 }
 
+// args.itemClass // return carParamsKey
+handlers.convertToCarParamsKey = function (args, context){
+	var convertedKey = args.itemClass;
+        switch (key)
+        {
+			case "bodykit":
+			convertedKey = "tune";
+			[break;]
+			case "spoiler":
+			convertedKey = "spo";
+			[break;]
+			case "exhaust":
+			convertedKey = "exh";
+			[break;]
+			case "disc14":
+			convertedKey = "disc";
+			[break;]
+			case "disc16":
+			convertedKey = "disc";
+			[break;]
+			case "disc19":
+			convertedKey = "disc";
+			[break;]
+			case "suspensions":
+			convertedKey = "shock";
+			[break;]
+			case "painting":
+			convertedKey = "color";
+			[break;]
+			case "toning":
+			convertedKey = "toner";
+			[break;]
+        }
+        return convertedKey;
+}
+
 // args.ItemInstanceId
 handlers.makeSparePartActive = function (args, context) {
 	
@@ -46,8 +82,12 @@ handlers.makeSparePartActive = function (args, context) {
 	log.info("parsedActiveParts = "+parsedActiveParts);
 	
 	var partItem = characterInventory.find((pi) => { return pi.ItemInstanceId == args.ItemInstanceId; });
+	var carParamsKey = server.convertToCarParamsKey(
+	{
+		itemClass: partItem.ItemClass
+	});
 	
-	parsedActiveParts[partItem.ItemClass] = args.ItemInstanceId;
+	parsedActiveParts[carParamsKey] = args.ItemInstanceId;
 	
 	// Write
 	server.UpdateCharacterData({
