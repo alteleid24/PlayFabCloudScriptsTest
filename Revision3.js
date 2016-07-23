@@ -22,6 +22,7 @@ handlers.deleteUser = function (args, context) {
 // args.itemClass // return carParamsKey
 handlers.convertToCarParamsKey = function (args, context){
 	var key = args.itemClass;
+	/*
 	var convertedKey;
         switch (key)
         {
@@ -53,7 +54,8 @@ handlers.convertToCarParamsKey = function (args, context){
 			convertedKey = "toner";
 			[break;]
         }
-        return { resultKey: convertedKey };
+		*/
+        return { resultKey: key };
 }
 
 // args.ItemInstanceId
@@ -95,7 +97,8 @@ handlers.makeSparePartActive = function (args, context) {
 	{
 		PlayFabId: currentPlayerId,
 		FunctionName: "convertToCarParamsKey",
-		FunctionParameter: { itemClass: partItem.ItemClass }
+		FunctionParameter: { itemClass: partItem.ItemClass },
+		GeneratePlayStreamEvent: true
 	});
 	
 	log.info("carParamsKey = "+carParamsKey);
