@@ -27,31 +27,31 @@ handlers.convertToCarParamsKey = function (args, context){
         {
 			case "bodykit":
 			convertedKey = "tune";
-			[break]
+			break
 			case "spoiler":
 			convertedKey = "spo";
-			[break]
+			break
 			case "exhaust":
 			convertedKey = "exh";
-			[break]
+			break
 			case "disc14":
 			convertedKey = "disc";
-			[break]
+			break
 			case "disc16":
 			convertedKey = "disc";
-			[break]
+			break
 			case "disc19":
 			convertedKey = "disc";
-			[break]
+			break
 			case "suspensions":
 			convertedKey = "shock";
-			[break]
+			break
 			case "painting":
 			convertedKey = "color";
-			[break]
+			break
 			case "toning":
 			convertedKey = "toner";
-			[break]
+			break
         }
     return { resultKey: convertedKey };
 }
