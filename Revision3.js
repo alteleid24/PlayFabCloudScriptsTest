@@ -93,7 +93,7 @@ handlers.makeSparePartActive = function (args, context) {
 	
 	log.info("carParamsKey = "+carParamsKey);
 	
-	parsedActiveParts[partItem.ItemClass] = args.ItemInstanceId;
+	parsedActiveParts[carParamsKey] = args.ItemInstanceId;
 	
 	// Write
 	server.UpdateCharacterData({
