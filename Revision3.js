@@ -52,6 +52,7 @@ handlers.makeSparePartActive = function (args, context) {
 	// Write
 	server.UpdateCharacterData({
         PlayFabId: currentPlayerId,
+		CharacterId: activeCharacterId,
         Data: {
             activeParts: JSON.stringify(parsedActiveParts)
         }
