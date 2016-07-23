@@ -87,7 +87,7 @@ handlers.makeSparePartActive = function (args, context) {
 	{
 		PlayFabId: currentPlayerId,
 		FunctionName: "convertToCarParamsKey",
-		FunctionParameter: { itemClass: partItem.ItemClass }
+		FunctionParameter: { "itemClass": partItem.ItemClass }
 	}).FunctionResult["key"];
 	
 	parsedActiveParts[carParamsKey] = args.ItemInstanceId;
