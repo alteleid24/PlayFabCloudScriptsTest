@@ -38,7 +38,7 @@ handlers.makeSparePartActive = function (args, context) {
 	var characterInventory = server.GetCharacterInventory({
 		PlayFabId: currentPlayerId,
 		CharacterId: activeCharacterId
-	}).Data["Inventory"];
+	}).Inventory;
 	
 	log.info("activePartsData = "+activePartsData);
 	var parsedActiveParts = JSON.parse(activePartsData);
