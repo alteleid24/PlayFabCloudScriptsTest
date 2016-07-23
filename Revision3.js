@@ -33,7 +33,7 @@ handlers.makeSparePartActive = function (args, context) {
 		PlayFabId: currentPlayerId,
 		CharacterId: activeCharacterId,
 		Keys: ["activeParts"]
-	});
+	}).Data["activeParts"].Value;
 	
 	var characterInventory = server.GetCharacterInventory({
 		PlayFabId: currentPlayerId,
