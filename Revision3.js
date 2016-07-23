@@ -22,6 +22,7 @@ handlers.deleteUser = function (args, context) {
 // args.itemClass // return carParamsKey
 handlers.convertToCarParamsKey = function (args, context){
 	var key = args.itemClass;
+	var convertedKey;
         switch (key)
         {
 			case "bodykit":
