@@ -85,21 +85,13 @@ handlers.makeSparePartActive = function (args, context) {
 	log.info("parsedActiveParts = "+parsedActiveParts);
 	
 	var partItem = characterInventory.find((pi) => { return pi.ItemInstanceId == args.ItemInstanceId; });
-	/*
+
 	var carParamsKey = server.ExecuteCloudScript(
 	{
 		PlayFabId: currentPlayerId,
 		FunctionName: "convertToCarParamsKey",
 		FunctionParameter: { itemClass: partItem.ItemClass }
 	}).FunctionResult["resultKey"];
-	*/
-	var carParamsKey = server.ExecuteCloudScript(
-	{
-		PlayFabId: currentPlayerId,
-		FunctionName: "convertToCarParamsKey",
-		FunctionParameter: { itemClass: partItem.ItemClass },
-		GeneratePlayStreamEvent: true
-	});
 	
 	log.info("carParamsKey = "+carParamsKey);
 	
