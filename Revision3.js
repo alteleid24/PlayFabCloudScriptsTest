@@ -64,7 +64,7 @@ handlers.makeSparePartActive = function (args, context) {
 		Keys: ["activeCharacter"]
 	}).Data["activeCharacter"].Value;
 	
-	log.info("activeCharacter = "+activeCharacterId);
+	//log.info("activeCharacter = "+activeCharacterId);
 	
 	var activePartsData = server.GetCharacterData({
 		PlayFabId: currentPlayerId,
@@ -77,10 +77,10 @@ handlers.makeSparePartActive = function (args, context) {
 		CharacterId: activeCharacterId
 	}).Inventory;
 	
-	log.info("activePartsData = "+activePartsData);
+	//log.info("activePartsData = "+activePartsData);
 	var parsedActiveParts = JSON.parse(activePartsData);
 	
-	log.info("parsedActiveParts = "+parsedActiveParts);
+	//log.info("parsedActiveParts = "+parsedActiveParts);
 	
 	var partItem = characterInventory.find((pi) => { return pi.ItemInstanceId == args.ItemInstanceId; });
 
@@ -91,7 +91,7 @@ handlers.makeSparePartActive = function (args, context) {
 		FunctionParameter: { itemClass: partItem.ItemClass }
 	}).FunctionResult["resultKey"];
 	
-	log.info("carParamsKey = "+carParamsKey);
+	//log.info("carParamsKey = "+carParamsKey);
 	
 	parsedActiveParts[carParamsKey] = args.ItemInstanceId;
 	
@@ -103,4 +103,18 @@ handlers.makeSparePartActive = function (args, context) {
             activeParts: JSON.stringify(parsedActiveParts)
         }
     });
+}
+
+// Купил запчасть. args.itemInstanceId
+handlers.onPartPurchaseConplete = function (args, context){
+	var activeCharacterId = server.GetUserData({
+		PlayFabId: currentPlayerId,
+		Keys: ["activeCharacter"]
+	}).Data["activeCharacter"].Value;
+	
+	var moveItemResult = server.MoveItemToCharacterFromUser({
+		PlayFabId: currentPlayerId,
+		CharacterId: activeCharacterId,
+		ItemInstanceId: args.itemInstanceId
+	});
 }
