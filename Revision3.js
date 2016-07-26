@@ -1,22 +1,16 @@
 handlers.grantGarageToUser = function (args, context) {
-	
-	server.GrantCharacterToUser(
-	{
+	server.GrantCharacterToUser({
 		PlayFabId: currentPlayerId,
 		CharacterName: "Garage_1",
 		CharacterType: "Garage"
-	}
-	);
+	});
 }
 
 handlers.deleteUser = function (args, context) {
-    
-    var deleteUsersResult = server.DeleteUsers (
-        {
-        	PlayFabIds: args.PlayFabId,
+    var deleteUsersResult = server.DeleteUsers ({
+		PlayFabIds: args.PlayFabId,
 		TitleId: args.TitleId
-        }
-    );
+    });
 }
 
 // args.itemClass // return carParamsKey
@@ -117,4 +111,26 @@ handlers.onPartPurchaseConplete = function (args, context){
 		CharacterId: activeCharacterId,
 		ItemInstanceId: args.itemInstanceId
 	});
+}
+
+// Купил гараж. args.itemInstanceId; return characterId
+handlers.onGarageBuyed = function (args, context){
+	var activeCharacterId = server.GetUserData({
+		PlayFabId: currentPlayerId,
+		Keys: ["activeCharacter"]
+	}).Data["activeCharacter"].Value;
+	
+	var consumeResult = server.ConsumeItem({
+		PlayFabId: currentPlayerId,
+		ItemInstanceId: args.itemInstanceId,
+		ConsumeCount: 1
+	});
+	
+	var grantCharacterResult = server.GrantCharacterToUser({
+		PlayFabId: currentPlayerId,
+		CharacterName: "Garage",
+		CharacterType: "Garage"
+	});
+	
+	return { CharacterId: grantCharacterResult.CharacterId };
 }
