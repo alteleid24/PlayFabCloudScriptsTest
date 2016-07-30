@@ -113,6 +113,20 @@ handlers.onPartPurchaseComplete = function (args, context){
 	});
 }
 
+// Купил запчасть. args.itemInstanceId
+handlers.onCarBuyed = function (args, context){
+	var activeCharacterId = server.GetUserData({
+		PlayFabId: currentPlayerId,
+		Keys: ["activeCharacter"]
+	}).Data["activeCharacter"].Value;
+	
+	var moveItemResult = server.MoveItemToCharacterFromUser({
+		PlayFabId: currentPlayerId,
+		CharacterId: activeCharacterId,
+		ItemInstanceId: args.itemInstanceId
+	});
+}
+
 // args.characterId
 handlers.onGarageSelected = function (args){
 	var updateData = server.UpdateUserData({
