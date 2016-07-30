@@ -120,13 +120,11 @@ handlers.onCarPurchaseComplete = function (args, context){
 		Keys: ["activeCharacter"]
 	}).Data["activeCharacter"].Value;
 	
-	var tmpData = "{}";
+	var tmpData = { none: "none"};
 	var updCharacterData server.UpdateCharacterData({
         PlayFabId: currentPlayerId,
 		CharacterId: activeCharacterId,
-        Data: {
-            activeParts: tmpData
-        }
+        Data: { activeParts: JSON.stringify(tmpData) }
     });
 	
 	var moveItemResult = server.MoveItemToCharacterFromUser({
@@ -137,7 +135,7 @@ handlers.onCarPurchaseComplete = function (args, context){
 }
 
 // args.characterId
-handlers.onGarageSelected = function (args){
+handlers.onGarageSelected = function (args, context){
 	var updateData = server.UpdateUserData({
 		PlayFabId: currentPlayerId,
 		Data: { activeCharacter: args.characterId }
