@@ -113,31 +113,33 @@ handlers.onPartPurchaseComplete = function (args, context){
 	});
 }
 
+// args.characterId
+handlers.onGarageSelected = function (args){
+	var updateData = server.UpdateUserData({
+		PlayFabId: currentPlayerId,
+		Data: { activeCharacter: args.characterId }
+	});
+}
+
 // args.itemInstanceId
-handlers.onCarPurchaseComplete = function (args, context){
+handlers.onCarPurchaseComplete = function (args){
 	var activeCharacterId = server.GetUserData({
 		PlayFabId: currentPlayerId,
 		Keys: ["activeCharacter"]
 	}).Data["activeCharacter"].Value;
-	
-	var tmpData = { none: "none"};
-	var updCharacterData server.UpdateCharacterData({
-        PlayFabId: currentPlayerId,
-		CharacterId: activeCharacterId,
-        Data: { activeParts: JSON.stringify(tmpData) }
-    });
 	
 	var moveItemResult = server.MoveItemToCharacterFromUser({
 		PlayFabId: currentPlayerId,
 		CharacterId: activeCharacterId,
 		ItemInstanceId: args.itemInstanceId
 	});
-}
-
-// args.characterId
-handlers.onGarageSelected = function (args, context){
-	var updateData = server.UpdateUserData({
-		PlayFabId: currentPlayerId,
-		Data: { activeCharacter: args.characterId }
-	});
+	
+	/*
+	var tmpData = { none: "none"};
+	var updCharacterData server.UpdateCharacterData({
+        PlayFabId: currentPlayerId,
+		CharacterId: activeCharacterId,
+        Data: { activeParts: JSON.stringify(tmpData) }
+    });
+	*/
 }
