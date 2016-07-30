@@ -122,7 +122,7 @@ handlers.onGarageSelected = function (args){
 }
 
 // args.itemInstanceId
-handlers.onCarPurchaseComplete = function (args){
+handlers.onPartPurchaseComplete = function (args, context){
 	var activeCharacterId = server.GetUserData({
 		PlayFabId: currentPlayerId,
 		Keys: ["activeCharacter"]
@@ -133,13 +133,4 @@ handlers.onCarPurchaseComplete = function (args){
 		CharacterId: activeCharacterId,
 		ItemInstanceId: args.itemInstanceId
 	});
-	
-	/*
-	var tmpData = { none: "none"};
-	var updCharacterData server.UpdateCharacterData({
-        PlayFabId: currentPlayerId,
-		CharacterId: activeCharacterId,
-        Data: { activeParts: JSON.stringify(tmpData) }
-    });
-	*/
 }
