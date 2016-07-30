@@ -90,7 +90,7 @@ handlers.makeSparePartActive = function (args, context) {
 	parsedActiveParts[carParamsKey] = args.ItemInstanceId;
 	
 	// Write
-	var updCharacterData server.UpdateCharacterData({
+	server.UpdateCharacterData({
         PlayFabId: currentPlayerId,
 		CharacterId: activeCharacterId,
         Data: {
@@ -118,19 +118,5 @@ handlers.onGarageSelected = function (args){
 	var updateData = server.UpdateUserData({
 		PlayFabId: currentPlayerId,
 		Data: { activeCharacter: args.characterId }
-	});
-}
-
-// args.itemInstanceId
-handlers.onCarPurchaseComplete = function (args, context){
-	var activeCharacterId = server.GetUserData({
-		PlayFabId: currentPlayerId,
-		Keys: ["activeCharacter"]
-	}).Data["activeCharacter"].Value;
-	
-	var moveItemResult = server.MoveItemToCharacterFromUser({
-		PlayFabId: currentPlayerId,
-		CharacterId: activeCharacterId,
-		ItemInstanceId: args.itemInstanceId
 	});
 }
