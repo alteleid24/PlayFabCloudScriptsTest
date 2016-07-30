@@ -100,7 +100,7 @@ handlers.makeSparePartActive = function (args, context) {
 }
 
 // Купил запчасть. args.itemInstanceId
-handlers.onPartPurchaseConplete = function (args, context){
+handlers.onPartPurchaseComplete = function (args, context){
 	var activeCharacterId = server.GetUserData({
 		PlayFabId: currentPlayerId,
 		Keys: ["activeCharacter"]
@@ -113,24 +113,10 @@ handlers.onPartPurchaseConplete = function (args, context){
 	});
 }
 
-// Купил гараж. args.itemInstanceId; return characterId
-handlers.onGarageBuyed = function (args, context){
-	var activeCharacterId = server.GetUserData({
+// args.characterId
+handlers.onGarageSelected = function (args){
+	var updateData = server.UpdateUserData({
 		PlayFabId: currentPlayerId,
-		Keys: ["activeCharacter"]
-	}).Data["activeCharacter"].Value;
-	
-	var consumeResult = server.ConsumeItem({
-		PlayFabId: currentPlayerId,
-		ItemInstanceId: args.itemInstanceId,
-		ConsumeCount: 1
+		Data: { activeCharacter: args.characterId }
 	});
-	
-	var grantCharacterResult = server.GrantCharacterToUser({
-		PlayFabId: currentPlayerId,
-		CharacterName: "Garage",
-		CharacterType: "Garage"
-	});
-	
-	return { CharacterId: grantCharacterResult.CharacterId };
 }
