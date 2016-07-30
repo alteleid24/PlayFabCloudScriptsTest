@@ -120,11 +120,12 @@ handlers.onCarPurchaseComplete = function (args, context){
 		Keys: ["activeCharacter"]
 	}).Data["activeCharacter"].Value;
 	
+	var tmpData = "{}";
 	var updCharacterData server.UpdateCharacterData({
         PlayFabId: currentPlayerId,
 		CharacterId: activeCharacterId,
         Data: {
-            activeParts: {}
+            activeParts: tmpData
         }
     });
 	
