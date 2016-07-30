@@ -122,7 +122,7 @@ handlers.onGarageSelected = function (args){
 }
 
 // args.itemInstanceId
-handlers.onPartPurchaseComplete = function (args, context){
+handlers.onCarPurchaseComplete = function (args, context){
 	var activeCharacterId = server.GetUserData({
 		PlayFabId: currentPlayerId,
 		Keys: ["activeCharacter"]
