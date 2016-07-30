@@ -129,7 +129,7 @@ handlers.onCarBuyed = function (args, context){
 	var updCharData = server.UpdateCharacterData({
 		PlayFabId: currentPlayerId,
 		CharacterId: activeCharacterId,
-		Data: {activeParts: "none"}
+		Data: {activeParts: "\"none\": \"none\""}
 	});
 }
 
