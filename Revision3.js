@@ -125,6 +125,14 @@ handlers.onCarBuyed = function (args, context){
 		CharacterId: activeCharacterId,
 		ItemInstanceId: args.itemInstanceId
 	});
+	
+	var charData = { none: "none" };
+	var charDataStr = JSON.stringify(parsedActiveParts);
+	var updCharData = server.UpdateCharacterData({
+		PlayFabId: currentPlayerId,
+		CharacterId: activeCharacterId,
+		Data: {activeParts: charDataStr}
+	});
 }
 
 // args.characterId
