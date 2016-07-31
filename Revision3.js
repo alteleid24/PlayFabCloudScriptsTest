@@ -170,11 +170,13 @@ handlers.onCarSale = function (args){
 	
 	log.info("charInventory.length = "+charInventory.length);
 	
-	for (var i = charInventory.length; i >= 0; i--){
+	if(charInventory.length > 0){
+		for (var i = charInventory.length-1; i >= 0; i--){
 		var revokeItem = server.RevokeInventoryItem({
 			PlayFabId: currentPlayerId,
 			CharacterId: activeCharacterId,
 			ItemInstanceId: charInventory[i].ItemInstanceId
 		});
+	}
 	}
 }
