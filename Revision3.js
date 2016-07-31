@@ -140,3 +140,32 @@ handlers.onGarageSelected = function (args){
 		Data: { activeCharacter: args.characterId }
 	});
 }
+
+// args.characterId
+handlers.onCarSale = function (args){
+	var activeCharacterId = server.GetUserData({
+		PlayFabId: currentPlayerId,
+		Keys: ["activeCharacter"]
+	}).Data["activeCharacter"].Value;
+	
+	var updCharData = server.UpdateCharacterData({
+		PlayFabId: currentPlayerId,
+		CharacterId: activeCharacterId,
+		Data: {activeParts: "{\"none\": \"none\"}"}
+	});
+	
+	var charInventory = server.GetCharacterInventory({
+		PlayFabId: currentPlayerId,
+		CharacterId: activeCharacterId
+	}).Inventory;
+	
+	log.info("charInventory.length = "+charInventory.length);
+	
+	for (var i = charInventory.length; i >= 0; i--){
+		var revokeItem = server.RevokeInventoryItem({
+			PlayFabId: currentPlayerId,
+			CharacterId: activeCharacterId,
+			ItemInstanceId: charInventory[i]
+		});
+	}
+}
