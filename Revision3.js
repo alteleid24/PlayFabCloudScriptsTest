@@ -6,6 +6,15 @@ handlers.grantGarageToUser = function (args, context) {
 	});
 }
 
+// args.PlayFabIds; args.VirtualCurrency; args.Amount
+handlers.grantSoftMoneyToPlayer = function (args, context) {
+	var softMoneyGrant = server.AddUserVirtualCurrency({
+		PlayFabId: args.PlayFabId,
+		VirtualCurrency: args.VirtualCurrency,
+		Amount: args.Amount
+	});
+}
+
 handlers.deleteUser = function (args, context) {
     var deleteUsersResult = server.DeleteUsers ({
 		PlayFabIds: args.PlayFabId,
@@ -165,7 +174,7 @@ handlers.onCarSale = function (args){
 		var revokeItem = server.RevokeInventoryItem({
 			PlayFabId: currentPlayerId,
 			CharacterId: activeCharacterId,
-			ItemInstanceId: charInventory[i]
+			ItemInstanceId: charInventory[i].ItemInstanceId
 		});
 	}
 }
