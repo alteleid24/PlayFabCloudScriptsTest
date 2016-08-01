@@ -6,10 +6,10 @@ handlers.grantGarageToUser = function (args, context) {
 	});
 }
 
-// args.PlayFabIds; args.VirtualCurrency; args.Amount
+// args.VirtualCurrency; args.Amount
 handlers.grantSoftMoneyToPlayer = function (args, context) {
 	var softMoneyGrant = server.AddUserVirtualCurrency({
-		PlayFabId: args.PlayFabId,
+		PlayFabId: currentPlayerId,
 		VirtualCurrency: args.VirtualCurrency,
 		Amount: args.Amount
 	});
@@ -20,6 +20,19 @@ handlers.deleteUser = function (args, context) {
 		PlayFabIds: args.PlayFabId,
 		TitleId: args.TitleId
     });
+}
+
+handlers.onNewPlayerCreated = function (args, context){
+	var grantGarage = server.GrantCharacterToUser({
+		PlayFabId: currentPlayerId,
+		CharacterName: "Garage_1",
+		CharacterType: "Garage"
+	});
+	
+	var updateData = server.UpdateUserData({
+		PlayFabId: currentPlayerId,
+		Data: { activeCharacter: grantGarage.CharacterId }
+	});
 }
 
 // args.itemClass // return carParamsKey
@@ -167,8 +180,6 @@ handlers.onCarSale = function (args){
 		PlayFabId: currentPlayerId,
 		CharacterId: activeCharacterId
 	}).Inventory;
-	
-	log.info("charInventory.length = "+charInventory.length);
 	
 	if(charInventory.length > 0){
 		for (var i = charInventory.length-1; i >= 0; i--){
