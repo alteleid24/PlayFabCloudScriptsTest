@@ -1,5 +1,5 @@
 handlers.grantGarageToUser = function (args, context) {
-	server.GrantCharacterToUser({
+	var grantGarage = server.GrantCharacterToUser({
 		PlayFabId: currentPlayerId,
 		CharacterName: "Garage_1",
 		CharacterType: "Garage"
@@ -180,6 +180,14 @@ handlers.onCarSale = function (args){
 		PlayFabId: currentPlayerId,
 		CharacterId: activeCharacterId
 	}).Inventory;
+	
+	var car = charInventory.find((pi) => { return pi.ItemClass == "car"; });
+	var cost = car.UnitPrice/2;
+	var softMoneyGrant = server.AddUserVirtualCurrency({
+		PlayFabId: currentPlayerId,
+		VirtualCurrency: car.UnitCurrency,
+		Amount: cost
+	});
 	
 	if(charInventory.length > 0){
 		for (var i = charInventory.length-1; i >= 0; i--){
