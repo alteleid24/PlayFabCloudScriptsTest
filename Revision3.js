@@ -204,8 +204,8 @@ handlers.onCarSale = function (args){
 handlers.onLevelCompleted = function (args){
 	var awardDistance = Math.floor(args.Distance * 100);
 	var awardNearMiss = Math.floor(args.NearMiss * 50);
-	var awardHighSpeed = Math.floor(args.HighSpeed * 100);
-	var awardOpposingLane = Math.floor(args.OpposingLane * 100);
+	var awardHighSpeed = Math.floor(args.HighSpeed * 5);
+	var awardOpposingLane = Math.floor(args.OpposingLane * 5);
 	
 	var awardsAll = awardDistance + awardHighSpeed + awardNearMiss + awardOpposingLane;
 	
