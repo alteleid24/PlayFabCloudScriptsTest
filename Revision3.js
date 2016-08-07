@@ -199,3 +199,18 @@ handlers.onCarSale = function (args){
 	}
 	}
 }
+
+// args.Distance; args.NearMiss; args.HighSpeed; args.OpposingLane;
+handlers.onLevelCompleted = function (args){
+	var awardDistance = args.Distance * 100;
+	var awardNearMiss = args.NearMiss * 50;
+	var awardHighSpeed = args.HighSpeed * 100;
+	var awardOpposingLane = args.OpposingLane * 100;
+	
+	var awardsAll = awardDistance + awardHighSpeed + awardNearMiss + awardOpposingLane;
+	
+	var grantMoney = server.grantSoftMoneyToPlayer({
+		VirtualCurrency: "SM",
+		Amount: awardsAll
+	});
+}
