@@ -281,7 +281,7 @@ handlers.onLevelCompleted = function (args){
 // args.missionInfo;
 handlers.onMissionCompleted = function (args){
 	
-	var parsedMissionInfo = JSON.Parse(args.missionInfo);
+	var parsedMissionInfo = JSON.parse(args.missionInfo);
 	log.info("onMissionCompleted! missionInfo = "+parsedMissionInfo);
 	
 	var rewardSM = parsedMissionInfo.SM;
