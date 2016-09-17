@@ -223,8 +223,8 @@ handlers.onLevelCompleted = function (args){
 			Keys: ["missions"]
 		});
 		
-		log.info("missionsData loading done = "+missionsData);
-		var parsedMissionsData = JSON.parse(missionsData);
+		log.info("missionsData loading done = "+missionsData.Data["missions"]);
+		var parsedMissionsData = JSON.parse(missionsData.Data["missions"]);
 		log.info("parsedMissionsData = "+parsedMissionsData);
 		
 		for (var i = parsedMissionsData.length-1; i >= 0; i--){
