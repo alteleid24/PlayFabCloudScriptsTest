@@ -230,13 +230,12 @@ handlers.onLevelCompleted = function (args){
 		for (var i = 0; i < parsedMissionsData.length; i++){
 			var missionInfo = parsedMissionsData[i];
 			log.info("missionInfo.id = "+missionInfo.id);
-			log.info("args.MissionId = "+args.MissionId);
 			
 			if(missionInfo.id == args.MissionId.toString()){
 				if(args.Distance >= missionInfo.dist) break;
 				
 				var tasksList = missionInfo.taskList;
-				var uncompletedTasksCount = taskList.length;
+				var uncompletedTasksCount = tasksList.length;
 				
 				log.info("uncompletedTasksCount = "+uncompletedTasksCount);
 				
