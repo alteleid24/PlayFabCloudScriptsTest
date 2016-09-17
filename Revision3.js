@@ -267,9 +267,9 @@ handlers.onLevelCompleted = function (args){
 					var missionCompleted = server.ExecuteCloudScript({
 						PlayFabId: currentPlayerId,
 						FunctionName: "onMissionCompleted",
-						FunctionParameter: { missionInfo: parsedMissionsData[i] },
+						FunctionParameter: { missionInfo: JSON.stringify(missionInfo) },
 						GeneratePlayStreamEvent: true
-					}).FunctionResult["resultKey"];
+					});
 				}
 				
 				break;
@@ -281,10 +281,11 @@ handlers.onLevelCompleted = function (args){
 // args.missionInfo;
 handlers.onMissionCompleted = function (args){
 	
-	log.info("onMissionCompleted! missionInfo = "+missionInfo);
+	var parsedMissionInfo = JSON.Parse(args.missionInfo);
+	log.info("onMissionCompleted! missionInfo = "+parsedMissionInfo);
 	
-	var rewardSM = missionInfo["SM"];
-	var rewardHM = missionInfo["HM"];
+	var rewardSM = parsedMissionInfo.SM;
+	var rewardHM = parsedMissionInfo.HM;
 	
 	var softMoneyGrant = server.AddUserVirtualCurrency({
 		PlayFabId: currentPlayerId,
