@@ -217,7 +217,7 @@ handlers.onLevelCompleted = function (args){
 	
 	log.info("reward CarBucks = "+awardsAll);
 	
-	if(MissionId != "none"){
+	if(args.MissionId != "none"){
 		
 		var missionsData = server.GetTitleData({
 			Keys: ["missions"]
@@ -226,7 +226,7 @@ handlers.onLevelCompleted = function (args){
 		log.info("missionsData loading done");
 		
 		for (var i = missionsData.length-1; i >= 0; i--){
-			if(missionsData[i]["id"] == MissionId){
+			if(missionsData[i]["id"] == args.MissionId){
 				if(missionsData[i]["dist"] > args.Distance) break;
 				
 				var tasksList = missionsData[i]["taskList"];
@@ -272,7 +272,7 @@ handlers.onLevelCompleted = function (args){
 }
 
 // args.missionInfo;
-handlers.onMissionCompleted = function (args, context){
+handlers.onMissionCompleted = function (args){
 	
 	log.info("onMissionCompleted! missionInfo = "+missionInfo);
 	
