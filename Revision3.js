@@ -225,16 +225,16 @@ handlers.onLevelCompleted = function (args){
 		
 		//log.info("missionsData loading done = "+missionsData.Data["missions"]);
 		var parsedMissionsData = JSON.parse(missionsData.Data["missions"]);
-		log.info("parsedMissionsData = "+parsedMissionsData);
+		log.info("parsedMissionsData = "+parsedMissionsData[0]);
 		
 		for (var i = parsedMissionsData.length-1; i >= 0; i--){
-			var missionInfo = JSON.parse(parsedMissionsData[i]);
+			var missionInfo = parsedMissionsData[i];
 			log.info("missionInfo = "+missionInfo);
 			
-			if(missionInfo["id"] == args.MissionId){
-				if(missionInfo["dist"] > args.Distance) break;
+			if(missionInfo.id == args.MissionId){
+				if(missionInfo.dist > args.Distance) break;
 				
-				var tasksList = missionInfo["taskList"];
+				var tasksList = missionInfo.taskList;
 				var uncompletedTasksCount = taskList.length;
 				
 				log.info("uncompletedTasksCount = "+uncompletedTasksCount);
