@@ -200,12 +200,12 @@ handlers.onCarSale = function (args){
 	}
 }
 
-// args.Distance; args.NearMiss; args.HighSpeed; args.OpposingLane;
+// args.Score; args.Distance; args.NearMiss; args.HighSpeed; args.OpposingLane; args.ComboMax - максимально набрано комбо; args.MissionId - id выполненной миссии;
 handlers.onLevelCompleted = function (args){
-	var awardDistance = Math.floor(args.Distance * 100);
-	var awardNearMiss = Math.floor(args.NearMiss * 50);
-	var awardHighSpeed = Math.floor(args.HighSpeed * 5);
-	var awardOpposingLane = Math.floor(args.OpposingLane * 5);
+	var awardDistance = Math.floor(args.Distance * 10);
+	var awardNearMiss = Math.floor(args.NearMiss * 10);
+	var awardHighSpeed = Math.floor(args.HighSpeed * 2);
+	var awardOpposingLane = Math.floor(args.OpposingLane * 3);
 	
 	var awardsAll = awardDistance + awardHighSpeed + awardNearMiss + awardOpposingLane;
 	
@@ -213,5 +213,81 @@ handlers.onLevelCompleted = function (args){
 		PlayFabId: currentPlayerId,
 		VirtualCurrency: "SM",
 		Amount: awardsAll
+	});
+	
+	log.info("reward CarBucks = "+awardsAll);
+	
+	if(MissionId != "none"){
+		
+		var missionsData = server.GetTitleData({
+			Keys: ["missions"]
+		}).Data["missions"].Value;
+		
+		log.info("missionsData loading done");
+		
+		for (var i = missionsData.length-1; i >= 0; i--){
+			if(missionsData[i]["id"] == MissionId){
+				if(missionsData[i]["dist"] > args.Distance) break;
+				
+				var tasksList = missionsData[i]["taskList"];
+				var uncompletedTasksCount = taskList.length;
+				
+				log.info("uncompletedTasksCount = "+uncompletedTasksCount);
+				
+				for (var j = tasksList.length-1; j >= 0; j--){
+					var taskType = tasksList[j]["type"];
+					if(taskType != "None"){
+						switch (taskType) {
+							case "Score":
+								if(args.Score >= tasksList[j]["value"]) uncompletedTasksCount--;
+							break;
+							case "Nearmiss":
+								if(args.NearMiss >= tasksList[j]["value"]) uncompletedTasksCount--;
+							break;
+							case "OpposingLane":
+								if(args.OpposingLane >= tasksList[j]["value"]) uncompletedTasksCount--;
+							break;
+							case "Combo":
+								if(args.ComboMax >= tasksList[j]["value"]) uncompletedTasksCount--;
+							break;
+						}
+					}
+				}
+				
+				log.info("Checking done! uncompletedTasksCount = "+uncompletedTasksCount);
+				
+				if(uncompletedTasksCount <= 0){
+					var missionCompleted = server.ExecuteCloudScript({
+						PlayFabId: currentPlayerId,
+						FunctionName: "onMissionCompleted",
+						FunctionParameter: { missionInfo: missionsData[i] },
+						GeneratePlayStreamEvent: true
+					}).FunctionResult["resultKey"];
+					
+					break;
+				}
+			}
+		}
+	}
+}
+
+// args.missionInfo;
+handlers.onMissionCompleted = function (args, context){
+	
+	log.info("onMissionCompleted! missionInfo = "+missionInfo);
+	
+	var rewardSM = missionInfo["SM"];
+	var rewardHM = missionInfo["HM"];
+	
+	var softMoneyGrant = server.AddUserVirtualCurrency({
+		PlayFabId: currentPlayerId,
+		VirtualCurrency: "SM",
+		Amount: rewardSM
+	});
+	
+	var softMoneyGrant = server.AddUserVirtualCurrency({
+		PlayFabId: currentPlayerId,
+		VirtualCurrency: "HM",
+		Amount: rewardHM
 	});
 }
