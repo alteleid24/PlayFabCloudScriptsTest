@@ -227,12 +227,13 @@ handlers.onLevelCompleted = function (args){
 		var parsedMissionsData = JSON.parse(missionsData.Data["missions"]);
 		log.info("parsedMissionsData = "+parsedMissionsData[0]);
 		
-		for (var i = parsedMissionsData.length-1; i >= 0; i--){
+		for (var i = 0; i < parsedMissionsData.length; i++){
 			var missionInfo = parsedMissionsData[i];
 			log.info("missionInfo.id = "+missionInfo.id);
+			log.info("args.MissionId = "+args.MissionId);
 			
-			if(missionInfo.id == args.MissionId){
-				if(missionInfo.dist > args.Distance) break;
+			if(missionInfo.id == args.MissionId.toString()){
+				if(args.Distance >= missionInfo.dist) break;
 				
 				var tasksList = missionInfo.taskList;
 				var uncompletedTasksCount = taskList.length;
