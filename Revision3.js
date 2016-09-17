@@ -240,20 +240,21 @@ handlers.onLevelCompleted = function (args){
 				log.info("uncompletedTasksCount = "+uncompletedTasksCount);
 				
 				for (var j = tasksList.length-1; j >= 0; j--){
-					var taskType = tasksList[j]["type"];
+					var taskType = tasksList[j].type;
+					log.info("taskType = "+taskType);
 					if(taskType != "None"){
 						switch (taskType) {
 							case "Score":
-								if(args.Score >= tasksList[j]["value"]) uncompletedTasksCount--;
+								if(args.Score >= tasksList[j].value) uncompletedTasksCount--;
 							break;
 							case "Nearmiss":
-								if(args.NearMiss >= tasksList[j]["value"]) uncompletedTasksCount--;
+								if(args.NearMiss >= tasksList[j].value) uncompletedTasksCount--;
 							break;
 							case "OpposingLane":
-								if(args.OpposingLane >= tasksList[j]["value"]) uncompletedTasksCount--;
+								if(args.OpposingLane >= tasksList[j].value) uncompletedTasksCount--;
 							break;
 							case "Combo":
-								if(args.ComboMax >= tasksList[j]["value"]) uncompletedTasksCount--;
+								if(args.ComboMax >= tasksList[j].value) uncompletedTasksCount--;
 							break;
 						}
 					}
@@ -268,9 +269,9 @@ handlers.onLevelCompleted = function (args){
 						FunctionParameter: { missionInfo: parsedMissionsData[i] },
 						GeneratePlayStreamEvent: true
 					}).FunctionResult["resultKey"];
-					
-					break;
 				}
+				
+				break;
 			}
 		}
 	}
