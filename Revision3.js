@@ -223,13 +223,15 @@ handlers.onLevelCompleted = function (args){
 			Keys: ["missions"]
 		}).Data["missions"].Value;
 		
-		log.info("missionsData loading done");
+		log.info("missionsData loading done = "+missionsData);
+		var parsedMissionsData = JSON.parse(missionsData);
+		log.info("parsedMissionsData = "+parsedMissionsData);
 		
-		for (var i = missionsData.length-1; i >= 0; i--){
-			if(missionsData[i]["id"] == args.MissionId){
-				if(missionsData[i]["dist"] > args.Distance) break;
+		for (var i = parsedMissionsData.length-1; i >= 0; i--){
+			if(parsedMissionsData[i]["id"] == args.MissionId){
+				if(parsedMissionsData[i]["dist"] > args.Distance) break;
 				
-				var tasksList = missionsData[i]["taskList"];
+				var tasksList = parsedMissionsData[i]["taskList"];
 				var uncompletedTasksCount = taskList.length;
 				
 				log.info("uncompletedTasksCount = "+uncompletedTasksCount);
@@ -260,7 +262,7 @@ handlers.onLevelCompleted = function (args){
 					var missionCompleted = server.ExecuteCloudScript({
 						PlayFabId: currentPlayerId,
 						FunctionName: "onMissionCompleted",
-						FunctionParameter: { missionInfo: missionsData[i] },
+						FunctionParameter: { missionInfo: parsedMissionsData[i] },
 						GeneratePlayStreamEvent: true
 					}).FunctionResult["resultKey"];
 					
