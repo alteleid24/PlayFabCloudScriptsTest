@@ -242,21 +242,22 @@ handlers.onLevelCompleted = function (args){
 				for (var j = tasksList.length-1; j >= 0; j--){
 					var taskType = tasksList[j].type;
 					log.info("taskType = "+taskType);
-					if(taskType != "None"){
-						switch (taskType) {
-							case "Score":
-								if(args.Score >= tasksList[j].value) uncompletedTasksCount--;
-							break;
-							case "Nearmiss":
-								if(args.NearMiss >= tasksList[j].value) uncompletedTasksCount--;
-							break;
-							case "OpposingLane":
-								if(args.OpposingLane >= tasksList[j].value) uncompletedTasksCount--;
-							break;
-							case "Combo":
-								if(args.ComboMax >= tasksList[j].value) uncompletedTasksCount--;
-							break;
-						}
+					switch (taskType) {
+						case "Score":
+							if(args.Score >= tasksList[j].value) uncompletedTasksCount--;
+						break;
+						case "Nearmiss":
+							if(args.NearMiss >= tasksList[j].value) uncompletedTasksCount--;
+						break;
+						case "OpposingLane":
+							if(args.OpposingLane >= tasksList[j].value) uncompletedTasksCount--;
+						break;
+						case "Combo":
+							if(args.ComboMax >= tasksList[j].value) uncompletedTasksCount--;
+						break;
+						case "None":
+							uncompletedTasksCount--;
+						break;
 					}
 				}
 				
