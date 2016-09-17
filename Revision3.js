@@ -229,7 +229,7 @@ handlers.onLevelCompleted = function (args){
 		
 		for (var i = parsedMissionsData.length-1; i >= 0; i--){
 			var missionInfo = parsedMissionsData[i];
-			log.info("missionInfo = "+missionInfo);
+			log.info("missionInfo.id = "+missionInfo.id);
 			
 			if(missionInfo.id == args.MissionId){
 				if(missionInfo.dist > args.Distance) break;
