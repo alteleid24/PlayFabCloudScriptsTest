@@ -221,7 +221,7 @@ handlers.onLevelCompleted = function (args){
 		
 		var missionsData = server.GetTitleData({
 			Keys: ["missions"]
-		}).Data["missions"].Value;
+		});
 		
 		log.info("missionsData loading done = "+missionsData);
 		var parsedMissionsData = JSON.parse(missionsData);
